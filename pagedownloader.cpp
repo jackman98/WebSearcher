@@ -2,29 +2,52 @@
 #include <QNetworkReply>
 #include <QNetworkRequest>
 
-PageDownloader::PageDownloader(QObject *parent) : QObject(parent)
+PageDownloader::PageDownloader( QObject* parent )
+    : QObject( parent )
+    , m_manager( nullptr )
 {
-    m_manager = new QNetworkAccessManager(this);
-    connect(m_manager, &QNetworkAccessManager::finished, this, &PageDownloader::downloadFinished);
 }
 
-void PageDownloader::downloadPage(Page *page)
+PageDownloader::~PageDownloader( )
 {
-    m_downloadPage = page;
-    if (page->isDownloaded()) {
+    qDebug( ) << __PRETTY_FUNCTION__;
+}
+
+void
+PageDownloader::startDownload( Page* page )
+{
+    m_page = page;
+    if ( m_page->isDownloaded( ) )
+    {
+        qDebug( ) << "Dow";
         return;
     }
 
-    m_manager->get(QNetworkRequest(m_downloadPage->url()));
+    qDebug( ) << "Loading";
+
+    m_manager = new QNetworkAccessManager( this );
+    connect( m_manager, &QNetworkAccessManager::finished, this, &PageDownloader::finishDownload );
+
+    emit started( );
+
+    m_manager->get( QNetworkRequest( m_page->url( ) ) );
 }
 
-void PageDownloader::downloadFinished(QNetworkReply *reply)
+void
+PageDownloader::finishDownload( QNetworkReply* reply )
 {
-    if (reply->error()) {
-        qDebug() << "Error: " << reply->errorString();
+    qDebug( ) << "Loading";
+
+    if ( reply->error( ) )
+    {
+        qDebug( ) << "Error: " << reply->errorString( );
     }
 
-    QString htmlText = QString::fromUtf8(reply->readAll());
-    m_downloadPage->setIsDownloaded(true);
-    m_downloadPage->setHtmlText(htmlText);
+    QString htmlText = QString::fromUtf8( reply->readAll( ) );
+    m_page->setIsDownloaded( true );
+    m_page->setHtmlText( htmlText );
+
+    reply->deleteLater( );
+
+    emit finished( m_page );
 }

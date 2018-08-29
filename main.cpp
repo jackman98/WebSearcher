@@ -2,25 +2,26 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include "dataprovider.h"
-#include "searcher.h"
+#include "searchengine.h"
 
-int main(int argc, char *argv[])
+int
+main( int argc, char* argv[] )
 {
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QCoreApplication::setAttribute( Qt::AA_EnableHighDpiScaling );
 
-    DataProvider *provider = new DataProvider();
-    Searcher searcher;
+    DataProvider provider;
+    SearchEngine searchEngine( &provider );
 
-    QGuiApplication app(argc, argv);
+    QGuiApplication app( argc, argv );
 
     QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    engine.load( QUrl( QStringLiteral( "qrc:/main.qml" ) ) );
 
-    engine.rootContext()->setContextProperty("dataProvider", provider);
-    engine.rootContext()->setContextProperty("searcher", &searcher);
+    engine.rootContext( )->setContextProperty( "dataProvider", &provider );
+    engine.rootContext( )->setContextProperty( "searchEngine", &searchEngine );
 
-    if (engine.rootObjects().isEmpty())
+    if ( engine.rootObjects( ).isEmpty( ) )
         return -1;
 
-    return app.exec();
+    return app.exec( );
 }

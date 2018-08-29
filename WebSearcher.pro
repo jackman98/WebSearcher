@@ -17,7 +17,13 @@ SOURCES += \
     dataprovider.cpp \
     page.cpp \
     pagedownloader.cpp \
+<<<<<<< f03a56f593c3054bfff283e597f230d670b4f1e2
     searcher.cpp
+=======
+    searchengine.cpp \
+    searchworker.cpp \
+    pageparser.cpp
+>>>>>>> Second commit
 
 RESOURCES += qml.qrc
 
@@ -36,4 +42,10 @@ HEADERS += \
     dataprovider.h \
     page.h \
     pagedownloader.h \
+<<<<<<< f03a56f593c3054bfff283e597f230d670b4f1e2
     searcher.h
+=======
+    searchengine.h \
+    searchworker.h \
+    pageparser.h
+>>>>>>> Second commit

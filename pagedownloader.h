@@ -1,27 +1,31 @@
 #ifndef PAGEDOWNLOADER_H
 #define PAGEDOWNLOADER_H
 
-#include <QObject>
 #include <QNetworkAccessManager>
+#include <QObject>
 #include "page.h"
 
 class PageDownloader : public QObject
 {
     Q_OBJECT
 public:
-    explicit PageDownloader(QObject *parent = nullptr);
+    explicit PageDownloader( QObject* parent = nullptr );
+
+    ~PageDownloader( );
 
 signals:
+    void started( );
+    void finished( Page* page );
 
 public slots:
-    void downloadFinished(QNetworkReply *reply);
+    void finishDownload( QNetworkReply* reply );
 
 public:
-    void downloadPage(Page *page);
+    void startDownload( Page* page );
 
 private:
-    QNetworkAccessManager *m_manager;
-    Page *m_downloadPage;
+    QNetworkAccessManager* m_manager;
+    Page* m_page;
 };
 
-#endif // PAGEDOWNLOADER_H
+#endif  // PAGEDOWNLOADER_H

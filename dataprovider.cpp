@@ -1,63 +1,83 @@
 ﻿#include "dataprovider.h"
 #include <QDebug>
 
-DataProvider::DataProvider(QObject *parent) : QObject(parent)
+DataProvider::DataProvider( QObject* parent )
+    : QObject( parent )
 {
-
 }
 
-QUrl DataProvider::startURl() const
+QUrl
+DataProvider::startURl( ) const
 {
     return m_startURl;
 }
 
-int DataProvider::countOfThreads() const
+int
+DataProvider::countOfThreads( ) const
 {
     return m_countOfThreads;
 }
 
-QString DataProvider::searchText() const
+QString
+DataProvider::searchText( ) const
 {
     return m_searchText;
 }
 
-int DataProvider::maxCountScanningURL() const
+int
+DataProvider::maxCountScanningURL( ) const
 {
     return m_maxCountScanningURL;
 }
 
-void DataProvider::setStartURl(QUrl startURl)
+int
+DataProvider::countFindedWords( ) const
 {
-    if (m_startURl == startURl)
+    return m_countFindedWords;
+}
+
+void
+DataProvider::setStartURl( QUrl startURl )
+{
+    if ( m_startURl == startURl )
         return;
 
     m_startURl = startURl;
-    emit startURlChanged(m_startURl);
+    emit startURlChanged( m_startURl );
 }
 
-void DataProvider::setCountOfThreads(int countOfThreads)
+void
+DataProvider::setCountOfThreads( int countOfThreads )
 {
-    if (m_countOfThreads == countOfThreads)
+    if ( m_countOfThreads == countOfThreads )
         return;
 
     m_countOfThreads = countOfThreads;
-    emit countOfThreadsChanged(m_countOfThreads);
+    emit countOfThreadsChanged( m_countOfThreads );
 }
 
-void DataProvider::setSearchText(QString searchText)
+void
+DataProvider::setSearchText( QString searchText )
 {
-    if (m_searchText == searchText)
+    if ( m_searchText == searchText )
         return;
 
     m_searchText = searchText;
-    emit searchTextChanged(m_searchText);
+    emit searchTextChanged( m_searchText );
 }
 
-void DataProvider::setMaxCountScanningURL(int maxCountScanningURL)
+void
+DataProvider::setMaxCountScanningURL( int maxCountScanningURL )
 {
-    if (m_maxCountScanningURL == maxCountScanningURL)
+    if ( m_maxCountScanningURL == maxCountScanningURL )
         return;
 
     m_maxCountScanningURL = maxCountScanningURL;
-    emit maxCountScanningURLChanged(m_maxCountScanningURL);
+    emit maxCountScanningURLChanged( m_maxCountScanningURL );
+}
+
+void
+DataProvider::setCountFindedWords( int countFindedWords )
+{
+    m_countFindedWords = countFindedWords;
 }

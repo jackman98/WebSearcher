@@ -1,5 +1,5 @@
-import QtQuick 2.11
-import QtQuick.Controls 2.4
+import QtQuick 2.9
+import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 
 ApplicationWindow {
@@ -8,6 +8,7 @@ ApplicationWindow {
     height: 480
     title: qsTr("Hello World")
 
+    readonly property int count: dataProvider ? dataProvider.countFindedWords : 0
 //    Binding {
 //        target: dataProvider
 //        property: "startUrl"
@@ -35,6 +36,16 @@ ApplicationWindow {
     ColumnLayout {
 
         anchors.centerIn: parent
+
+        Label {
+            id: findedWords
+
+            Layout.fillWidth: true
+            horizontalAlignment: Qt.AlignHCenter
+
+            text: count
+
+        }
 
         Label {
             id: startUrlLabel
@@ -117,7 +128,7 @@ ApplicationWindow {
                     dataProvider.searchText = searchTextField.text;
                     dataProvider.maxCountScanningURL = parseInt(maxCountScanningUrlField.text);
 
-                    searcher.start();
+                    searchEngine.start();
                 }
             }
 
