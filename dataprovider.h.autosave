@@ -1,0 +1,46 @@
+#ifndef DATAPROVIDER_H
+#define DATAPROVIDER_H
+
+#include <QObject>
+#include <QUrl>
+
+class DataProvider : public QObject
+{
+    Q_OBJECT
+
+    Q_PROPERTY(QUrl startURl READ startURl WRITE setStartURl NOTIFY startURlChanged)
+    Q_PROPERTY(int countOfThreads READ countOfThreads WRITE setCountOfThreads NOTIFY countOfThreadsChanged)
+    Q_PROPERTY(QString searchText READ searchText WRITE setSearchText NOTIFY searchTextChanged)
+    Q_PROPERTY(int maxCountScanningURL READ maxCountScanningURL WRITE setMaxCountScanningURL NOTIFY maxCountScanningURLChanged)
+
+public:
+    explicit DataProvider(QObject *parent = nullptr);
+
+    QUrl startURl() const;
+    int countOfThreads() const;
+    QString searchText() const;
+    int maxCountScanningURL() const;
+
+signals:
+    void startURlChanged(QUrl startURl);
+    void countOfThreadsChanged(int countOfThreads);
+    void searchTextChanged(QString searchText);
+    void maxCountScanningURLChanged(int maxCountScanningURL);
+
+public slots:
+    void setStartURl(QUrl startURl);
+    void setCountOfThreads(int countOfThreads);
+    void setSearchText(QString searchText);
+    void setMaxCountScanningURL(int maxCountScanningURL);
+
+    void procces();
+
+
+private:
+    QUrl m_startURl;
+    int m_countOfThreads;
+    QString m_searchText;
+    int m_maxCountScanningURL;
+};
+
+#endif // DATAPROVIDER_H

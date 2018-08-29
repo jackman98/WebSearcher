@@ -1,0 +1,13 @@
+#include "searcher.h"
+
+Searcher::Searcher(DataProvider *dataProvider, QObject *parent) : QObject(parent), m_dataProvider(dataProvider)
+{
+
+}
+
+void Searcher::start()
+{
+    m_pageDownloader.downloadPage(&m_startPage);
+    //m_pageParser.parse(&m_startPage);
+    
+}
