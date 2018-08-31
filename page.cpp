@@ -88,10 +88,26 @@ Page::searchText( ) const
     return mSearchText;
 }
 
+bool
+Page::isExecuted( ) const
+{
+    return m_isExecuted;
+}
+
 void
 Page::setSearchText( const QString& searchText )
 {
     mSearchText = searchText;
+}
+
+void
+Page::setIsExecuted( bool isExecuted )
+{
+    if ( m_isExecuted == isExecuted )
+        return;
+
+    m_isExecuted = isExecuted;
+    emit isExecutedChanged( m_isExecuted );
 }
 
 QString

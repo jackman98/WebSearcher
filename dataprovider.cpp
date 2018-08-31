@@ -46,6 +46,16 @@ DataProvider::setStartURl( QUrl startURl )
     emit startURlChanged( m_startURl );
 }
 
+// void
+// DataProvider::setStartURl( QString startURl )
+//{
+//    if ( m_startURl.toString( ) == startURl )
+//        return;
+
+//    m_startURl = QUrl( startURl );
+//    emit startURlChanged( m_startURl );
+//}
+
 void
 DataProvider::setCountOfThreads( int countOfThreads )
 {

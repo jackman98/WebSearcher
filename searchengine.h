@@ -23,7 +23,7 @@ public slots:
     void addPages( );
 
 private:
-    Page mStartPage;
+    Page* mStartPage;
     DataProvider* mDataProvider;
     QThreadPool mThreadPool;
     QQueue< Page* > mPages;

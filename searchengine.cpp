@@ -14,25 +14,29 @@ SearchEngine::SearchEngine( DataProvider* dataProvider, QObject* parent )
 void
 SearchEngine::start( )
 {
-    mStartPage.setUrl( mDataProvider->startURl( ) );
-    mStartPage.setSearchText( mDataProvider->searchText( ) );
+    mStartPage = new Page( mDataProvider->startURl( ), mDataProvider->searchText( ) );
 
-    mPages.append( &mStartPage );
+    mPages.append( mStartPage );
     emit pagesChanged( );
 }
 
 void
 SearchEngine::procces( )
 {
-    if ( mPages.empty( ) )
+    if ( mPages.empty( ) && mThreadPool.activeThreadCount( ) == 0 )
     {
+        qDebug( ) << "Finish!";
         return;
     }
 
-    SearchWorker* worker = new SearchWorker( mPages.takeFirst( ) );
+    while ( !mPages.empty( ) )
+    {
+        SearchWorker* worker = new SearchWorker( mPages.takeFirst( ) );
+        worker->setAutoDelete( false );
 
-    connect( worker, &SearchWorker::finished, this, &SearchEngine::addPages );
-    mThreadPool.start( worker );
+        connect( worker, &SearchWorker::finished, this, &SearchEngine::addPages );
+        mThreadPool.start( worker );
+    }
 }
 
 void
@@ -45,5 +49,8 @@ SearchEngine::addPages( )
     mDataProvider->countFindedWordsChanged( findedWords );
 
     mPages.append( page->subpages );
+    page->setIsExecuted( true );
+    //    delete page;
+    sender( )->deleteLater( );
     emit pagesChanged( );
 }

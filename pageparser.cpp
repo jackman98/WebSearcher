@@ -8,6 +8,11 @@ PageParser::PageParser( QObject* parent )
 {
 }
 
+PageParser::~PageParser( )
+{
+    qDebug( ) << __PRETTY_FUNCTION__;
+}
+
 void
 PageParser::startParse( Page* page )
 {

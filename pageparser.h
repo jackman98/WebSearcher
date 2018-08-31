@@ -9,6 +9,7 @@ class PageParser : public QObject
     Q_OBJECT
 public:
     explicit PageParser( QObject* parent = nullptr );
+    ~PageParser( );
 
 signals:
     void started( );

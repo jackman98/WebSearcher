@@ -1,7 +1,7 @@
 #ifndef PAGE_H
 #define PAGE_H
+#include <QList>
 #include <QObject>
-#include <QQueue>
 #include <QUrl>
 
 class Page : public QObject
@@ -13,6 +13,7 @@ class Page : public QObject
     Q_PROPERTY( int countOfSearchText READ countOfSearchText NOTIFY countOfSearchTextChanged )
     Q_PROPERTY(
             bool isDownloaded READ isDownloaded WRITE setIsDownloaded NOTIFY isDownloadedChanged )
+    Q_PROPERTY( bool isExecuted READ isExecuted WRITE setIsExecuted NOTIFY isExecutedChanged )
 
 public:
     explicit Page( QObject* parent = nullptr );
@@ -29,7 +30,9 @@ public:
     QString htmlText( ) const;
 
     QString searchText( ) const;
-    QQueue< Page* > subpages;
+    QList< Page* > subpages;
+
+    bool isExecuted( ) const;
 
 public slots:
     void setUrl( QUrl url );
@@ -38,11 +41,15 @@ public slots:
     void setIsDownloaded( bool isDownloaded );
     void setSearchText( const QString& searchText );
 
+    void setIsExecuted( bool isExecuted );
+
 signals:
     void urlChanged( QUrl url );
     void countOfFindedUrlChanged( int countOfFindedUrl );
     void countOfSearchTextChanged( int countOfSearchText );
     void isDownloadedChanged( bool isDownloaded );
+
+    void isExecutedChanged( bool isExecuted );
 
 private:
     QUrl m_url;
@@ -51,6 +58,7 @@ private:
     bool m_isDownloaded = false;
     QString m_htmlText = "";
     QString mSearchText = "";
+    bool m_isExecuted = false;
 };
 
 #endif  // PAGE_H

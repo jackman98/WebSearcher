@@ -39,6 +39,7 @@ signals:
 
 public slots:
     void setStartURl( QUrl startURl );
+    //    void setStartURl( QString startURl );
     void setCountOfThreads( int countOfThreads );
     void setSearchText( QString searchText );
     void setMaxCountScanningURL( int maxCountScanningURL );

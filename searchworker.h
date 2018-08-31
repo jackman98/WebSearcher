@@ -13,6 +13,7 @@ class SearchWorker : public QObject, public QRunnable
 
 public:
     explicit SearchWorker( Page* page, QObject* parent = nullptr );
+    ~SearchWorker( );
 
     Page* page( ) const;
 

@@ -7,6 +7,11 @@ SearchWorker::SearchWorker( Page* page, QObject* parent )
 {
 }
 
+SearchWorker::~SearchWorker( )
+{
+    mPage->deleteLater( );
+}
+
 void
 SearchWorker::run( )
 {
@@ -23,6 +28,7 @@ SearchWorker::run( )
 
     qDebug( ) << "Loading";
     loop.exec( );
+    qDebug( ) << "Worker finished";
 }
 
 Page*

@@ -8,30 +8,29 @@ ApplicationWindow {
     height: 480
     title: qsTr("Hello World")
 
-    readonly property int count: dataProvider ? dataProvider.countFindedWords : 0
-//    Binding {
-//        target: dataProvider
-//        property: "startUrl"
-//        value: startUrl.text
-//    }
+        Binding {
+        target: dataProvider
+        property: "startURl"
+        value: startUrlField.text
+    }
 
-//    Binding {
-//        target: dataProvider
-//        property: "countOfThreads"
-//        value: countOfThreads.text
-//    }
+    Binding {
+        target: dataProvider
+        property: "countOfThreads"
+        value: countOfThreadsField.text
+    }
 
-//    Binding {
-//        target: dataProvider
-//        property: "searchText"
-//        value: searchText.text
-//    }
+    Binding {
+        target: dataProvider
+        property: "searchText"
+        value: searchTextField.text
+    }
 
-//    Binding {
-//        target: dataProvider
-//        property: "maxCountScanningURL"
-//        value: maxCountScanningURL.text
-//    }
+    Binding {
+        target: dataProvider
+        property: "maxCountScanningURL"
+        value: maxCountScanningUrlField.text
+    }
 
     ColumnLayout {
 
@@ -43,7 +42,7 @@ ApplicationWindow {
             Layout.fillWidth: true
             horizontalAlignment: Qt.AlignHCenter
 
-            text: count
+            text: dataProvider.countFindedWords
 
         }
 
@@ -122,11 +121,11 @@ ApplicationWindow {
             Button {
                 text: qsTr("Start")
 
-                onClicked: {
+                onClicked: {/*
                     dataProvider.startURl = startUrlField.text;
                     dataProvider.countOfThreads = parseInt(countOfThreadsField.text);
                     dataProvider.searchText = searchTextField.text;
-                    dataProvider.maxCountScanningURL = parseInt(maxCountScanningUrlField.text);
+                    dataProvider.maxCountScanningURL = parseInt(maxCountScanningUrlField.text);*/
 
                     searchEngine.start();
                 }
